@@ -13,6 +13,20 @@ Qinject helps you easily develop applications using `DI` (Dependency Injection) 
 * Register any type as a dependency, from `Flutter` Widgets and functions to simple classes
 * Simple, but powerful, unit testing tooling
 
+## Installation
+The `Qinject` package is available at [pub.dev/packages/qinject](https://pub.dev/packages/qinject)
+
+It can be installed with
+
+```
+  dart pub add qinject
+```
+or
+
+```
+  flutter pub add qinject
+```
+
 ## Quick Start
 The following example shows a basic application making use of both `DI` and `Service Locator` patterns alongside `Singleton` and `Resolver` dependency registration. These topics are covered in more detail later in this document.
 
