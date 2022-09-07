@@ -1,0 +1,11 @@
+name: qinject
+description: A fast, flexible, IoC library for Dart and Flutter
+version: 1.0.0
+homepage: https://github.com/comradequinn/qinject-dart
+
+environment:
+  sdk: '>=2.17.6 <3.0.0'
+
+dev_dependencies:
+  lints: ^2.0.0
+  test: ^1.16.0
