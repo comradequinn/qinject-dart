@@ -1,3 +1,5 @@
+## 1.3.0
+- Add Installation section to README
 ## 1.2.0
 - Add Logging & Diagnostics section to README.md
 ## 1.1.0
