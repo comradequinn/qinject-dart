@@ -68,7 +68,15 @@ class DateTimeReader {
 ```
 
 ## Dependency Registration
-There are two high level types of dependency; `Singleton` and `Resolver`. `Resolver`s are covered in detail in the dedicated [Resolvers](#resolvers) section. A `Singleton` is evaluated once, the first time it is resolved, and then the same instance is returned for the lifetime of the application.
+There are two high level types of dependency registration; `Singleton` and `Resolver`. `Resolver`s are covered in detail in the dedicated [Resolvers](#resolvers) section. A `Singleton` is evaluated once, the first time it is resolved, and then the same instance is returned for the lifetime of the application.
+
+Singletons are registered as shown below:
+
+```dart
+  Qinject.registerSingleton(() => MyClass());
+```
+
+When `use<MyClass>()` is invoked for the first time, a new instance of `MyClass` is returned. When `use<MyClass>()` is subsequently invoked, that same, original instance is returned; for the lifetime of the application.
 
 ## Dependency Usage
 All dependencies of any type are resolved with the same method: `use<TConsumer, TDependency>`. This may be invoked off the `Qinject` Service Locator or an via instance of `Qinjector` injected into a class. Both approaches can be used interchangeably as any dependencies registered are accesible via either route.
@@ -91,9 +99,9 @@ Adopting `DI` sees classes declare their dependencies as variables, typically of
 
 Done naively, this quickly becomes a very complex dependency graph to manage, so the majority of projects that adopt this approach use an IoC Library or Framework to manage this complexity. This is what `Qinject` offers for `Dart` and `Flutter` projects.
 
-`Qinject` takes a slightly different appoach to this than comparable frameworks in other languages, however, by injecting an abstract `Service Locator` instance into the constructor. This is then immediately used by the constructor to acquire any dependencies.
+`Qinject` takes a slightly different approach to this than comparable frameworks in other languages, however, by injecting an abstract `Service Locator` instance into the constructor. This is then immediately used by the constructor to acquire any dependencies.
 
-An example is shown below illustrating how dependencies are declared in the constructor and populated by the injected `Qinjector` instance. 
+An example is shown below, illustrating how dependencies are declared in the constructor and populated by the injected `Qinjector` instance. 
 
 ```dart
 main() {
@@ -124,7 +132,7 @@ class ConsumerClass {
   // Do something with dependencies
 }
 ```
-Complex applications can be easier to test when `DI` is used to decouple dependencies. In `Qinject` this is due to the interface representing the mechanism of dependency resolution that is passed into each consuming class. In testing scenarios, this can be replaced with a different implementation of [Qinjector](#unit-testing-with-qinjector) created specifically for the test and scoped to it, and it alone. This prevents the config for one test leaking into an other and brittle dependencies forming around the ordering of test execution. These are subtle benefits, but on larger projects they often dividends.
+Complex applications can be easier to test when `DI` is used to decouple dependencies. In `Qinject` this is due to the interface representing the mechanism of dependency resolution that is passed into each consuming class. In testing scenarios, this can be replaced with a different implementation of [Qinjector](#unit-testing-with-qinjector) created specifically for the test and scoped to it, and it alone. This prevents the configuration for one test leaking into an other and brittle dependencies forming around the ordering of test execution. These are subtle benefits, but on larger projects they often pay dividends.
 
 ## Unit Testing with Qinjector
 A `TestQinjector` instance can be used to register `Test Doubles` for dependencies to assist in Unit Testing. The `TestQinjector` instance can then be passed to dependency consumers instead of the default `Qinjector` instance returned from `Qinject.instance()`.
