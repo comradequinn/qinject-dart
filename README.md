@@ -86,7 +86,7 @@ main() {
     // Access the Qinjector instance
     final qinjector = Qinject.instance();
 
-    Qinject.register((_) => ConsumerClass()); // Note the ConsumerClass can be registered before its dependencies
+    Qinject.register((_) => ConsumerClass(qinjector)); // Note the ConsumerClass can be registered before its dependencies
     Qinject.register((_) => DependencyA(qinjector)); // Note that DependencyA requires a Qinjector also. We hide this from ConsumerClass by providing it in the Resolver closure; this is purely for brevity and clarity however
     Qinject.register((_) => DependencyB());
     Qinject.register((_) => DependencyC(qinjector));
@@ -246,6 +246,18 @@ A `Cached Resolver` returns the same instance of `TDependency` for a defined per
   class CachedData {
     // omitted for brevity; would house various data attributes
   }
+```
+
+
+## Logging & Diagnostics
+By default, `Qinject` logs records of potentially relevant activity to `stdout`. In some cases, this may need to be overridden to redirect logs or to apply some form of pre-processing to them. 
+
+This can be achieved by setting the `Quinject.log` field to a custom logging delegate.
+
+The below example routes logs to Flutter's `debugPrint`
+
+```dart
+  Qinject.log = (message) => debugPrint(message);
 ```
 
 ## Contributions
