@@ -1,3 +1,5 @@
+## 1.3.1
+- Apply minor corrections to README
 ## 1.3.0
 - Add Installation section to README
 ## 1.2.0

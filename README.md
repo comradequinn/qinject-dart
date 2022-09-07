@@ -272,7 +272,7 @@ A `Cached Resolver` returns the same instance of `TDependency` for a defined per
 
 
 ## Logging & Diagnostics
-By default, `Qinject` logs records of potentially relevant activity to `stdout`. In some cases, this may need to be overridden to redirect logs or to apply some form of pre-processing to them. 
+By default, `Qinject` logs records of potentially relevant activity to the `console`. In some cases, this may need to be overridden to redirect logs or to apply some form of pre-processing to them. 
 
 This can be achieved by setting the `Quinject.log` field to a custom logging delegate.
 

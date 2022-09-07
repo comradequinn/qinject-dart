@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'default_qinjector.dart';
 import 'qinjector.dart';
 import 'types.dart';
@@ -18,10 +16,10 @@ class Qinject {
     }
   }
 
-  /// Writes logs to stdout by default
+  /// Writes logs to the console by default
   /// Override this behavior by setting log to a custom Function(String)
   /// implementation
-  static var log = (String message) => stdout.writeln("qinject $message");
+  static var log = (String message) => print("qinject $message");
 
   /// Registers `onInit` as the delegate that provides the single instance
   /// of `TDependency` which will be returned from all invocations of
