@@ -1,3 +1,5 @@
+## 1.4.1
+- Update pubspec.yaml description length to meet pub.dev conventions
 ## 1.4.0
 - Remove dart:io to gain Web platform support
 - Apply minor corrections to README
