@@ -8,7 +8,6 @@ import 'types.dart';
 /// supports both Service Locator and DI (Dependency Injection)
 class Qinject {
   static final Map<String, Resolver<dynamic>> _dependencyRegister = {};
-  static _log(String message) => stdout.writeln("qinject $message");
   static T _annotateErrorsFor<T>(T Function() f, String action) {
     try {
       return f();
@@ -18,6 +17,11 @@ class Qinject {
       );
     }
   }
+
+  /// Writes logs to stdout by default
+  /// Override this behavior by setting log to a custom Function(String)
+  /// implementation
+  static var log = (String message) => stdout.writeln("qinject $message");
 
   /// Registers `onInit` as the delegate that provides the single instance
   /// of `TDependency` which will be returned from all invocations of
@@ -45,7 +49,7 @@ class Qinject {
       var s = (singleton ??= _annotateErrorsFor<TDependency>(
           onInit, "invoking singleton init for $dependencyType"));
 
-      _log("returned singleton instance of $dependencyType");
+      log("returned singleton instance of $dependencyType");
 
       return s;
     });
@@ -124,7 +128,7 @@ class Qinject {
     final dependencyType = typeOf<TDependency>().toString();
 
     _register<TDependency>((Type consumer) {
-      _log("returned instance of $dependencyType");
+      log("returned instance of $dependencyType");
 
       return _annotateErrorsFor(
           () => resolver(consumer), "invoking resolver for $dependencyType");
@@ -134,7 +138,7 @@ class Qinject {
   static _register<TDependency>(Resolver<TDependency> resolver) {
     var dependencyType = typeOf<TDependency>().toString();
 
-    _log("registered resolver for $dependencyType");
+    log("registered resolver for $dependencyType");
 
     _dependencyRegister[dependencyType] = resolver;
   }
