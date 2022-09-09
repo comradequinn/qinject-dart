@@ -76,7 +76,7 @@ Singletons are registered as shown below:
   Qinject.registerSingleton(() => MyClass());
 ```
 
-When `use<MyClass>()` is invoked for the first time, a new instance of `MyClass` is returned. When `use<MyClass>()` is subsequently invoked, that same, original instance is returned; for the lifetime of the application.
+When `use<TConsumer, MyClass>()` is invoked for the first time, a new instance of `MyClass` is returned. When `use<TConsumer, MyClass>()` is subsequently invoked, that same, original instance is returned; for the lifetime of the application.
 
 ## Dependency Usage
 All dependencies of any type are resolved with the same method: `use<TConsumer, TDependency>`. This may be invoked off the `Qinject` Service Locator or an via instance of `Qinjector` injected into a class. Both approaches can be used interchangeably as any dependencies registered are accesible via either route.
@@ -84,7 +84,7 @@ All dependencies of any type are resolved with the same method: `use<TConsumer, 
 ### Using Service Locator
 The `Service Locator` is a simple pattern for decoupling dependencies. Its usage is predicated on a globally accessible `Service Locator` instance; in the case of `Qinject` this is the `Qinject` type itself which exposes a static `use<TConsumer, TDependency>` method. 
 
-Dependencies can be resolved in below manner from anywhere that can access the `Qinject` type:
+Dependencies can be resolved in the below manner from anywhere that can access the `Qinject` type:
 
 ```dart
     final DependencyType _dependency = Qinject.use<ConsumerType, DependencyType>();
