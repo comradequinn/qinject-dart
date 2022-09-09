@@ -1,3 +1,5 @@
+## 1.4.2
+- Correct types in README
 ## 1.4.1
 - Update pubspec.yaml description length to meet pub.dev conventions
 ## 1.4.0
