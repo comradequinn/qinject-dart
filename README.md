@@ -163,7 +163,7 @@ Dependencies are registered by assigning a `Resolver` delegate to a dependency t
 This takes the form: 
 
 ```dart
-    Qinject.register<TDependency>(TDependency Function (Type consumer));
+Qinject.register<TDependency>(TDependency Function (Type consumer));
 ```
 
 The type of `TDependency` can be any `Type` recognised by the type system; not just a class. For example, functions are often registered as [Factory Resolvers](#factory-resolvers)
@@ -180,7 +180,7 @@ It is important to remember that there is only one fundamental type of `Resolver
 A `Transient Resolver` is the simplest form of `Resolver`. It looks like the below
 
 ```dart
-    Qinject.register((_) => MyClass()); // note the Type argument is ignored with _ as it is not used in this example (though it could be required if the resolution process)
+Qinject.register((_) => MyClass()); // note the Type argument is ignored with _ as it is not used in this example (though it could be required if the resolution process)
 ```
 
 Whenever `use<MyClass>()` is invoked, a new instance of `MyClass` is returned.
@@ -189,14 +189,30 @@ Whenever `use<MyClass>()` is invoked, a new instance of `MyClass` is returned.
 A `Type Sensitive Resolver` returns a different implementation of an interface depending on the type passed as the `consumer` argument.
 
 ```dart
-      Qinject.register((Type consumer) => consumer.runtimeType == TypeA
-      ? ImplementationA()
-      : ImplementationB());
+Qinject.register((Type consumer) => consumer.runtimeType == TypeA
+? ImplementationA()
+: ImplementationB());
 ```
 
 Whenever `use<TConsumer, TypeA>()` is invoked, a new instance of `ImplementationA` is returned. When `use<TConsumer, NotTypeA>()` is invoked where the `NotTypeA` is, as the name suggests, anything other than `TypeA`, then a new instance of `ImplementationB` is returned. 
 
 Note that both `ImplementationA` and `ImplementationB` must implement the same interface.
+
+### Async Resolvers
+An `Async Resolver` is similar to a transient resolver aside from the return type being a `Future<TDependency>` rather than a `TDependency`. It looks like the below:
+
+```dart
+Qinject.register((_) async {
+  await Future.delayed(Duration(milliseconds: 100)); // Simulate some async activity
+  return MyClass();
+});
+```
+
+Whenever `use<TConsumer, Future<MyClass>>()` is invoked, a new instance of `Future<MyClass>` is returned, which can be awaited on if required, as with any `Future`. For example:
+
+```dart
+final myClass = await Qinject.use<void, Future<MyClass>>();
+```
 
 ### Factory Resolvers
 A `Factory Resolver` returns a factory function rather than a dependency instance. This is commonly used for classes with runtime-variable constructor arguments, such as `Flutter Widgets`.

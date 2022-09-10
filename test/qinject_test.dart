@@ -101,6 +101,19 @@ void main() {
     });
   });
 
+  group("async dependency resolution", () {
+    test('async dependency is resolved based on configured resolver', () async {
+      Qinject.reset();
+
+      Qinject.register((_) async {
+        await Future.delayed(Duration(milliseconds: 100));
+        return Svc3();
+      });
+
+      expect((await Qinject.use<void, Future<Svc3>>()).runtimeType, Svc3);
+    });
+  });
+
   group("testqinjector dependency resolution", () {
     test('test-double is resolved based on configured resolver', () {
       final testQinjector = TestQinjector();
