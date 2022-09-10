@@ -1,6 +1,6 @@
 name: qinject
 description: A fast, flexible, IoC library for Dart and Flutter with support for both Dependency Injection and Service Locator
-version: 1.4.3
+version: 1.4.4
 homepage: https://github.com/comradequinn/qinject-dart
 
 environment:
