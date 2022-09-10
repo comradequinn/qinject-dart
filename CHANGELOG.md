@@ -1,3 +1,5 @@
+## 1.4.3
+- Add async resolver example to README and associated unit test
 ## 1.4.2
 - Correct types in README
 ## 1.4.1
