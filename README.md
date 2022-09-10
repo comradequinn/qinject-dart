@@ -199,16 +199,16 @@ Whenever `use<TConsumer, TypeA>()` is invoked, a new instance of `Implementation
 Note that both `ImplementationA` and `ImplementationB` must implement the same interface.
 
 ### Async Resolvers
-An `Async Resolver` is similar to a transient resolver aside from the return type being a `Future<TDependency>` rather than a `TDependency`. It looks like the below:
+An `Async Resolver` is similar to any other form of resolver aside from the return type being a `Future<TDependency>` rather than a `TDependency`. It looks like the below:
 
 ```dart
-Qinject.register((_) async {
+Qinject.register((_) async { // note the async annotation
   await Future.delayed(Duration(milliseconds: 100)); // Simulate some async activity
   return MyClass();
 });
 ```
 
-Whenever `use<TConsumer, Future<MyClass>>()` is invoked, a new instance of `Future<MyClass>` is returned, which can be awaited on if required, as with any `Future`. For example:
+Whenever `use<TConsumer, Future<MyClass>>()` is invoked, a `Future<MyClass>` is returned, which can be awaited on if required, as with any `Future`. For example:
 
 ```dart
 final myClass = await Qinject.use<void, Future<MyClass>>();
